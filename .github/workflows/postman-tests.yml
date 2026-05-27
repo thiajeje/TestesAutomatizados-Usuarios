@@ -9,9 +9,17 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
 jobs:
   postman-tests:
     runs-on: ubuntu-latest
+
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout repository
@@ -26,7 +34,7 @@ jobs:
           postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
 
       - name: Create reports directory
-        run: mkdir -p reportsVerity
+        run: mkdir -p reports
 
       - name: Run Collections
         run: |
@@ -34,34 +42,34 @@ jobs:
           postman collection run "52003051-fad315e2-f571-4b04-baff-6e039c9bc11d" \
             -e "52003051-dc772248-703d-4794-a397-b2cd0fa6fa61" \
             --reporters cli,junit \
-            --reporter-junit-export reportsVerity/collection-1.xml
+            --reporter-junit-export reports/collection-1.xml
 
           postman collection run "52003051-51bce0be-e4ff-461a-9a53-7d5846ba5215" \
             -e "52003051-dc772248-703d-4794-a397-b2cd0fa6fa61" \
             --reporters cli,junit \
-            --reporter-junit-export reportsVerity/collection-2.xml
+            --reporter-junit-export reports/collection-2.xml
 
           postman collection run "52003051-0a260b8a-0618-46a6-92da-d1c1ba4266f2" \
             -e "52003051-dc772248-703d-4794-a397-b2cd0fa6fa61" \
             --reporters cli,junit \
-            --reporter-junit-export reportsVerity/collection-3.xml
+            --reporter-junit-export reports/collection-3.xml
 
           postman collection run "52003051-0bb7f2b2-2cde-4960-ba89-13db5b255973" \
             -e "52003051-dc772248-703d-4794-a397-b2cd0fa6fa61" \
             --reporters cli,junit \
-            --reporter-junit-export reportsVerity/collection-4.xml
+            --reporter-junit-export reports/collection-4.xml
 
           postman collection run "52003051-f07939b6-d4c7-4570-9bc3-3e07ef9a9cf8" \
             -e "52003051-dc772248-703d-4794-a397-b2cd0fa6fa61" \
             --reporters cli,junit \
-            --reporter-junit-export reportsVerity/collection-5.xml
+            --reporter-junit-export reports/collection-5.xml
 
       - name: Upload test reports
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: postman-test-reports
-          path: reportsVerity/
+          path: reports/
 
       - name: Publish test results
         uses: mikepenz/action-junit-report@v5
