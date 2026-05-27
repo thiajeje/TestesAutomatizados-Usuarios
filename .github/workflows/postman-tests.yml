@@ -48,20 +48,20 @@ jobs:
           postman collection run "52003051-51bce0be-e4ff-461a-9a53-7d5846ba5215" \
             -e "52003051-dc772248-703d-4794-a397-b2cd0fa6fa61" \
             --reporters cli,junit,html \
-            --reporter-junit-export reportsTest/collection-2.xml \
-            --reporter-html-export reportsTest/atualizar_usuario.html
+            --reporter-junit-export reportsTest/criar_usuario.xml \
+            --reporter-html-export reportsTest/criar_usuario.html
 
           postman collection run "52003051-0a260b8a-0618-46a6-92da-d1c1ba4266f2" \
             -e "52003051-dc772248-703d-4794-a397-b2cd0fa6fa61" \
             --reporters cli,junit,html \
-            --reporter-junit-export reportsTest/criar_usuario.xml \
-            --reporter-html-export reportsTest/criar_usuario.html
+            --reporter-junit-export reportsTest/deletar_usuario.xml \
+            --reporter-html-export reportsTest/deletar_usuario.html
 
           postman collection run "52003051-0bb7f2b2-2cde-4960-ba89-13db5b255973" \
             -e "52003051-dc772248-703d-4794-a397-b2cd0fa6fa61" \
             --reporters cli,junit,html \
-            --reporter-junit-export reportsTest/deletar_usuario.xml \
-            --reporter-html-export reportsTest/deletar_usuario.html
+            --reporter-junit-export reportsTest/listar_usuario.xml \
+            --reporter-html-export reportsTest/listar_usuario.html
 
           postman collection run "52003051-f07939b6-d4c7-4570-9bc3-3e07ef9a9cf8" \
             -e "52003051-dc772248-703d-4794-a397-b2cd0fa6fa61" \
