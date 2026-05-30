@@ -42,6 +42,24 @@ jobs:
             --reporters cli,junit,html \
             --reporter-junit-export reportsTest/atualizar_usuario.xml \
             --reporter-html-export reportsTest/atualizar_usuario.html
+			
+          newman run collections/criar_usuario.json \
+            -e environments/postman_environment.json \
+            --reporters cli,junit,html \
+            --reporter-junit-export reportsTest/criar_usuario.xml \
+            --reporter-html-export reportsTest/criar_usuario.html
+			
+          newman run collections/listar_usuario.json \
+            -e environments/postman_environment.json \
+            --reporters cli,junit,html \
+            --reporter-junit-export reportsTest/listar_usuario.xml \
+            --reporter-html-export reportsTest/listar_usuario.html
+			
+          newman run collections/deletar_usuario.json \
+            -e environments/postman_environment.json \
+            --reporters cli,junit,html \
+            --reporter-junit-export reportsTest/deletar_usuario.xml \
+            --reporter-html-export reportsTest/deletar_usuario.html
 
       - name: Upload test reports
         if: always()
