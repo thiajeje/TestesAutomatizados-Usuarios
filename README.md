@@ -71,4 +71,5 @@ Os testes foram criados para validar:
 
 
 👨‍💻 Autor 
+ 
 Projeto desenvolvido para estudos na área de QA e automação de testes de API.
