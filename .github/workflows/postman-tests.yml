@@ -61,6 +61,13 @@ jobs:
             --reporter-junit-export reportsTest/deletar_usuario.xml \
             --reporter-html-export reportsTest/deletar_usuario.html
 
+          newman run collections/teste_carga.json \
+            -e environments/postman_environment.json \
+            --iteration-count 200 \
+            --timeout-request 30000 \
+            --reporters cli,html \
+            --reporter-html-export reportsTest/teste_carga.html
+
       - name: Upload test reports
         if: always()
         uses: actions/upload-artifact@v4
