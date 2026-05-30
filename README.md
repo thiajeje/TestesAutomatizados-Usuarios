@@ -1,6 +1,6 @@
 Testes de API com Postman
 
-
+ 
 📌 Sobre o Projeto
 
 Este projeto foi desenvolvido com o objetivo de praticar testes de API utilizando o Postman.
@@ -70,5 +70,5 @@ Os testes foram criados para validar:
 - Garantir 100% de cobertura para a API 
 
 
-👨‍💻 Autor
+👨‍💻 Autor 
 Projeto desenvolvido para estudos na área de QA e automação de testes de API.
