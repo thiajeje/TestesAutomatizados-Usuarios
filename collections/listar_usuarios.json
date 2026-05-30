@@ -1,0 +1,375 @@
+{
+  "info": {
+    "_postman_id": "0bb7f2b2-2cde-4960-ba89-13db5b255973",
+    "name": "Teste Verity - Listar Usuários",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52003051",
+    "_collection_link": "https://go.postman.co/collection/52003051-0bb7f2b2-2cde-4960-ba89-13db5b255973?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const responseJson = pm.response.json();\r",
+              "\r",
+              "// Salva o token em variável do ambiente\r",
+              "pm.environment.set('tokenValido', responseJson.authorization);\r",
+              "\r",
+              "console.log('Token gerado!');"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"{{email_verity}}\",\r\n  \"password\": \"{{password_verity}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{server_verity}}/login",
+          "host": [
+            "{{server_verity}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar todos usuários",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Validar lista\", function () {\r",
+              "\r",
+              "    const response = pm.response.json();\r",
+              "\r",
+              "    pm.expect(pm.response.code).to.eql(200);\r",
+              "\r",
+              "    pm.expect(response.usuarios[0]).to.have.property(\"nome\");\r",
+              "    pm.expect(response.usuarios[0]).to.have.property(\"email\");\r",
+              "    pm.expect(response.usuarios[0]).to.have.property(\"password\");\r",
+              "    pm.expect(response.usuarios[0]).to.have.property(\"administrador\");\r",
+              "    pm.expect(response.usuarios[0]).to.have.property(\"_id\");\r",
+              "\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Status é 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "const response = pm.response.json();\r",
+              "\r",
+              "const usuarios = response.usuarios;\r",
+              "\r",
+              "// escolhe usuário aleatório\r",
+              "const usuarioAleatorio = usuarios[\r",
+              "    Math.floor(Math.random() * usuarios.length)\r",
+              "];\r",
+              "\r",
+              "// salva apenas o ID em variável global\r",
+              "pm.environment.set(\"userID\", usuarioAleatorio._id);\r",
+              "\r",
+              "console.log(\"ID salvo:\", usuarioAleatorio._id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{tokenValido}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{server_verity}}/usuarios",
+          "host": [
+            "{{server_verity}}"
+          ],
+          "path": [
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar usuário por ID - com sucesso",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Validar usuario com ID igual a 16 caracteres\", function () {\r",
+              "\r",
+              "    const response = pm.response.json();\r",
+              "\r",
+              "    pm.expect(pm.response.code).to.eql(200);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{server_verity}}/usuarios/{{userID}}",
+          "host": [
+            "{{server_verity}}"
+          ],
+          "path": [
+            "usuarios",
+            "{{userID}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar usuário por ID - menor que 16",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Validar usuario com ID menor que 16 caracteres\", function () {\r",
+              "\r",
+              "    const response = pm.response.json();\r",
+              "\r",
+              "    pm.expect(pm.response.code).to.eql(400);\r",
+              "    pm.expect(response.id).to.eql(\"id deve ter exatamente 16 caracteres alfanuméricos\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{server_verity}}/usuarios/54948121",
+          "host": [
+            "{{server_verity}}"
+          ],
+          "path": [
+            "usuarios",
+            "54948121"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar usuário por ID - maior que 16",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Validar usuario com ID maior que 16 caracteres\", function () {\r",
+              "\r",
+              "    const response = pm.response.json();\r",
+              "\r",
+              "    pm.expect(pm.response.code).to.eql(400);\r",
+              "    pm.expect(response.id).to.eql(\"id deve ter exatamente 16 caracteres alfanuméricos\");\r",
+              "    \r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{server_verity}}/usuarios/AWObr5FFD9v1UHvby",
+          "host": [
+            "{{server_verity}}"
+          ],
+          "path": [
+            "usuarios",
+            "AWObr5FFD9v1UHvby"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Listar usuário por ID - inexistente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Validar usuario com ID inexistente\", function () {\r",
+              "\r",
+              "    const response = pm.response.json();\r",
+              "\r",
+              "    pm.expect(pm.response.code).to.eql(400);\r",
+              "    pm.expect(response.message).to.eql(\"Usuário não encontrado\");\r",
+              "    \r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{server_verity}}/usuarios/AWObr5FFD9v1UHmp",
+          "host": [
+            "{{server_verity}}"
+          ],
+          "path": [
+            "usuarios",
+            "AWObr5FFD9v1UHmp"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
