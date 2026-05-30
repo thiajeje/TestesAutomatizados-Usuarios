@@ -1,0 +1,153 @@
+{
+  "info": {
+    "_postman_id": "f07939b6-d4c7-4570-9bc3-3e07ef9a9cf8",
+    "name": "Teste Verity - Login",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52003051",
+    "_collection_link": "https://go.postman.co/collection/52003051-f07939b6-d4c7-4570-9bc3-3e07ef9a9cf8?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Login válido\", function () {\r",
+              "\r",
+              "    const response = pm.response.json();\r",
+              "\r",
+              "    pm.expect(pm.response.code).to.eql(200);\r",
+              "    pm.expect(response.message).to.eql(\"Login realizado com sucesso\");\r",
+              "    pm.expect(response.authorization).to.not.be.null;\r",
+              "    \r",
+              "});\r",
+              "\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"{{email_verity}}\",\r\n  \"password\": \"{{password_verity}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{server_verity}}/login",
+          "host": [
+            "{{server_verity}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login Inválido",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Login válido\", function () {\r",
+              "\r",
+              "    const response = pm.response.json();\r",
+              "\r",
+              "    pm.expect(pm.response.code).to.eql(401);\r",
+              "    pm.expect(response.message).to.eql(\"Email e/ou senha inválidos\");\r",
+              "    pm.expect(response.authorization).to.be.undefined;\r",
+              "    \r",
+              "});\r",
+              "\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"login.inexistent@qa.com\",\r\n  \"password\": \"{{password_verity}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{server_verity}}/login",
+          "host": [
+            "{{server_verity}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
