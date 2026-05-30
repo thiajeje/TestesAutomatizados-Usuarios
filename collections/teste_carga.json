@@ -1,0 +1,82 @@
+{
+  "info": {
+    "_postman_id": "08f269b3-dc99-4fd7-afba-373071de1b23",
+    "name": "Teste Verity - Teste de carga",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52003051",
+    "_collection_link": "https://go.postman.co/collection/52003051-08f269b3-dc99-4fd7-afba-373071de1b23?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Login válido\", function () {\r",
+              "\r",
+              "    const response = pm.response.json();\r",
+              "\r",
+              "    pm.expect(pm.response.code).to.eql(200);\r",
+              "    pm.expect(response.message).to.eql(\"Login realizado com sucesso\");\r",
+              "    pm.expect(response.authorization).to.not.be.null;\r",
+              "    \r",
+              "});\r",
+              "\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"{{email_verity}}\",\r\n  \"password\": \"{{password_verity}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{server_verity}}/login",
+          "host": [
+            "{{server_verity}}"
+          ],
+          "path": [
+            "login"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
