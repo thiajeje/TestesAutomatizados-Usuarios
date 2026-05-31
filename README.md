@@ -6,11 +6,10 @@ Testes de API com Postman
 Este projeto foi desenvolvido com o objetivo de praticar testes de API utilizando o Postman.
 
 A API testada é responsável pelo gerenciamento de usuários, permitindo realizar operações de:
-
-Criar usuário (post)
-Consultar usuário (get)
-Atualizar usuário (put)
-Excluir usuário (delete)
+- Criar usuário (post)
+- Consultar usuário (get)
+- Atualizar usuário (put)
+- Excluir usuário (delete)
 
 Os testes foram feitos para validar se a API está funcionando corretamente e retornando as respostas esperadas.
 
